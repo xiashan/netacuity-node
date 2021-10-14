@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es2015",
+    "lib": ["es5", "es6", "dom"],
+    "sourceMap": true,
+    "declaration": true,
+    "declarationDir": "types",
+    "typeRoots": ["node_modules/@types"],
+    "moduleResolution": "node",
+    "esModuleInterop": true
+  },
+  "exclude": ["./test", "./docs", "./dist", "node_modules/"],
+  "typedocOptions": {
+    "entryPoints": ["src/index.ts"],
+    "out": "docs"
+  }
+}

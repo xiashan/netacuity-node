@@ -315,83 +315,65 @@ exports.generateResponseObject = function (queryParamArray, responseArray, callb
   switch (queryParamArray[0]) {
     case 3:
       responseObject = new na_geo(queryParamArray, responseArray);
-      callback(responseObject);
       break;
     case 4:
       responseObject = new na_edge(queryParamArray, responseArray);
-      callback(responseObject);
       break;
     case 5:
       responseObject = new na_sic(queryParamArray, responseArray);
-      callback(responseObject);
       break;
     case 6:
       responseObject = new na_domain(queryParamArray, responseArray);
-      callback(responseObject);
       break;
     case 7:
       responseObject = new na_zip(queryParamArray, responseArray);
-      callback(responseObject);
       break;
     case 8:
       responseObject = new na_isp(queryParamArray, responseArray);
-      callback(responseObject);
       break;
     case 9:
       responseObject = new na_home_biz(queryParamArray, responseArray);
-      callback(responseObject);
       break;
     case 10:
       responseObject = new na_asn(queryParamArray, responseArray);
-      callback(responseObject);
       break;
     case 11:
       responseObject = new na_language(queryParamArray, responseArray);
-      callback(responseObject);
       break;
     case 12:
       responseObject = new na_proxy(queryParamArray, responseArray);
-      callback(responseObject);
       break;
     case 14:
       responseObject = new na_is_an_isp(queryParamArray, responseArray);
-      callback(responseObject);
       break;
     case 15:
       responseObject = new na_company(queryParamArray, responseArray);
-      callback(responseObject);
       break;
     case 17:
       responseObject = new na_demographics(queryParamArray, responseArray);
-      callback(responseObject);
       break;
     case 18:
       responseObject = new na_naics(queryParamArray, responseArray);
-      callback(responseObject);
       break;
     case 19:
       responseObject = new na_cbsa(queryParamArray, responseArray);
-      callback(responseObject);
       break;
     case 24:
       responseObject = new na_mobile_carrier(queryParamArray, responseArray);
-      callback(responseObject);
       break;
     case 25:
       responseObject = new na_organization(queryParamArray, responseArray);
-      callback(responseObject);
       break;
     case 26:
       responseObject = new na_pulse(queryParamArray, responseArray);
-      callback(responseObject);
       break;
     case 30:
       responseObject = new na_pulse_plus(queryParamArray, responseArray);
-      callback(responseObject);
       break;
     default:
       console.log('This should not happen.');
   }
+  return responseObject;
 };
 
 /**
@@ -432,4 +414,11 @@ exports.showError = function (identify, extra) {
     data.errMsg = data.errMsg.replace('%s', extra);
   }
   return data;
+};
+
+exports.showResult = function (data) {
+  return {
+    errNum: 0,
+    data,
+  };
 };

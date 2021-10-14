@@ -2,7 +2,7 @@
   "name": "netacuity-node",
   "version": "1.0.0",
   "description": "node for netacuity",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
     "build": "rollup --config",
     "test": "jest --no-cache",
@@ -32,6 +32,7 @@
     "@rollup/plugin-eslint": "^8.0.1",
     "@rollup/plugin-typescript": "^8.2.5",
     "@types/jest": "^27.0.2",
+    "@types/node": "^16.10.9",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.0.0",
@@ -41,6 +42,7 @@
     "prettier": "^2.4.1",
     "rollup": "^2.58.0",
     "ts-jest": "^27.0.5",
+    "ts-node": "^10.3.0",
     "tslib": "^2.3.1",
     "typedoc": "^0.22.5",
     "typescript": "^4.4.4"

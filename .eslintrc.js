@@ -1,5 +1,3 @@
-/** @format */
-
 module.exports = {
   root: true,
   env: {
@@ -15,7 +13,9 @@ module.exports = {
   plugins: ['prettier', '@typescript-eslint'],
   // add your custom rules here
   rules: {
+    'block-spacing': 'error',
     'no-console': 'off',
     'prettier/prettier': 'error',
+    'linebreak-style': ['error', 'unix'],
   },
 };

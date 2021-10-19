@@ -1,5 +1,5 @@
 {
-  "name": "netacuity-node",
+  "name": "@noxfed/netacuity-node",
   "version": "1.0.0",
   "description": "node for netacuity",
   "main": "dist/bundle.cjs.js",

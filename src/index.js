@@ -1,7 +1,7 @@
 /*
  * @Author: xiashan
  * @Date: 2021-10-13 18:51:24
- * @LastEditTime: 2021-10-19 10:38:41
+ * @LastEditTime: 2021-10-19 11:22:51
  */
 const requestIp = require('request-ip');
 const netAcuityAPI = require('./lib/NetAcuityAPI.js');
@@ -27,6 +27,10 @@ const databaseEnums = {
   pulseplus: 30,
 };
 
+function isObject(val) {
+  return Object.prototype.toString.call(val) === '[object Object]';
+}
+
 /**
  * get client geo info
  * @param {object} [req]
@@ -35,24 +39,26 @@ const databaseEnums = {
  * @param {string} [options.netAcuityIp]
  * @param {number} [options.apiId]
  * @param {number} [options.timeoutDelay]
+ * @param {boolean} [options.rawBoolean]
  * @return {*}
  */
 async function getClientInfo(req, options) {
-  if (is.not.object(options)) {
+  if (!isObject(options)) {
     throw new TypeError('Options must be an object!');
   }
-  const {databaseType = 3, netAcuityIp = '47.88.65.136', apiId = 64, timeoutDelay = 2000} = options;
+  const {databaseType = 3, apiId = 64, netAcuityIp, timeoutDelay = 2000, rawBoolean = false} = options;
   if (!netAcuityIp) {
-    throw new TypeError('NetAcuityIp must be exist!');
+    throw new Error('NetAcuityIp must be exist!');
   }
 
   const clientIp = requestIp.getClientIp(req);
-  //clientIp = '118.26.73.210';
-  // console.log('clientIp:', clientIp);
   const queryParam = [databaseType, apiId, clientIp, netAcuityIp, timeoutDelay];
-  const data = await netAcuityAPI.queryNetAcuityServer(queryParam);
-  // console.log('geoData:', data);
-  return data;
+  try {
+    return await netAcuityAPI.queryNetAcuityServer(queryParam, rawBoolean);
+  } catch (error) {
+    console.log('call api error', error);
+    throw new Error(error);
+  }
 }
 
 /**
@@ -63,13 +69,12 @@ async function getClientInfo(req, options) {
  * @return {*}
  */
 function mw(options = {}) {
-  // Validation.
-  if (is.not.object(options)) {
+  if (!isObject(options)) {
     throw new TypeError('Options must be an object!');
   }
 
   const attributeName = options.attributeName || 'clientInfo';
-  return (req, res, next) => {
+  return async (req, res, next) => {
     const data = await getClientInfo(req, options);
     Object.defineProperty(req, attributeName, {
       get: () => data,

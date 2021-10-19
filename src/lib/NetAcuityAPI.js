@@ -122,7 +122,7 @@ exports.queryNetAcuityServer = function (queryParamArray, rawBoolean = false) {
         if (err) {
           return reject(netAcuityTools.showError('SERVICE_ERROR', err));
         }
-        console.log('Querying NetAcuity Server : ' + queryString);
+        // console.log('Querying NetAcuity Server : ' + queryString);
       });
     } else {
       reject(netAcuityTools.showError('PARAM_ERROR', err));

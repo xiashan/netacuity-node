@@ -29,11 +29,11 @@
 var validator = require('validator');
 
 var commonError = {
-  ERROR: [1001, 'Service Error', 'Service Error'],
-  TIMEOUT: [1002, 'Request timed out for transaction %s', 'Service Error'],
-  IDENTIFY_ERROR: [1003, 'Transaction id not match', 'Service Error'],
-  SERVICE_ERROR: [1004, 'NetAcuity service error %s', 'Service Error'],
-  PARAM_ERROR: [1005, 'Params Error', 'Service Error'],
+  ERROR: 'Service Error',
+  TIMEOUT: 'Request timed out for transaction %s',
+  IDENTIFY_ERROR: 'Transaction id not match',
+  SERVICE_ERROR: 'NetAcuity service error %s',
+  PARAM_ERROR: 'Params Error',
 };
 
 var databaseEnums = {
@@ -404,21 +404,12 @@ exports.showError = function (identify, extra) {
   } else {
     errInfo = commonError[identify];
   }
-  const [errNum, errMsg, errShowMsg] = errInfo;
-  const data = {
-    errNum,
-    errMsg,
-    errShowMsg,
-  };
   if (extra) {
-    data.errMsg = data.errMsg.replace('%s', extra);
+    errInfo = errInfo.replace('%s', extra);
   }
-  return data;
+  return errInfo;
 };
 
 exports.showResult = function (data) {
-  return {
-    errNum: 0,
-    data,
-  };
+  return data;
 };

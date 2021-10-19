@@ -1,7 +1,7 @@
 /*
  * @Author: xiashan
  * @Date: 2021-10-13 18:51:47
- * @LastEditTime: 2021-10-19 14:57:44
+ * @LastEditTime: 2021-10-19 15:06:14
  */
 
 // import typescript from '@rollup/plugin-typescript';
@@ -31,6 +31,7 @@ export default {
     resolve(),
     commonjs(),
     babel({
+      runtimeHelpers: true,
       exclude: 'node_modules/**',
     }),
     terser(),

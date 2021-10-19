@@ -27,7 +27,7 @@
 
 var dgram = require('dgram');
 var randomstring = require('randomstring');
-var xml2js = require('xml2js');
+// var xml2js = require('xml2js');
 var netAcuityTools = require('./NetAcuityTools.js');
 
 var implementationProtocolVersion = 5;

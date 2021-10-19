@@ -1,12 +1,12 @@
 /*
  * @Author: xiashan
  * @Date: 2021-10-13 18:51:47
- * @LastEditTime: 2021-10-19 10:40:04
+ * @LastEditTime: 2021-10-19 14:22:01
  */
 
 import typescript from '@rollup/plugin-typescript';
 export default {
-  input: 'src/index.ts',
+  input: 'src/index.js',
   output: [
     {
       file: 'dist/bundle.cjs.js',
@@ -17,10 +17,10 @@ export default {
       format: 'es',
     },
   ],
-  plugins: [
-    typescript({
-      sourceMap: false,
-      tsconfig: './tsconfig.json',
-    }),
-  ],
+  // plugins: [
+  //   typescript({
+  //     sourceMap: false,
+  //     tsconfig: './tsconfig.json',
+  //   }),
+  // ],
 };

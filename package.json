@@ -2,7 +2,8 @@
   "name": "netacuity-node",
   "version": "1.0.0",
   "description": "node for netacuity",
-  "main": "src/index.js",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.esm.js",
   "scripts": {
     "build": "rollup --config",
     "test": "jest --no-cache",

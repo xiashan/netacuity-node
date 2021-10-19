@@ -1,7 +1,7 @@
 /*
  * @Author: xiashan
  * @Date: 2021-10-13 18:51:24
- * @LastEditTime: 2021-10-19 11:22:51
+ * @LastEditTime: 2021-10-19 14:13:33
  */
 const requestIp = require('request-ip');
 const netAcuityAPI = require('./lib/NetAcuityAPI.js');
@@ -56,7 +56,6 @@ async function getClientInfo(req, options) {
   try {
     return await netAcuityAPI.queryNetAcuityServer(queryParam, rawBoolean);
   } catch (error) {
-    console.log('call api error', error);
     throw new Error(error);
   }
 }

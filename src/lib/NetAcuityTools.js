@@ -26,9 +26,9 @@
  * **************************************************************************
  */
 
-var validator = require('validator');
+import validator from 'validator';
 
-var commonError = {
+const commonError = {
   ERROR: 'Service Error',
   TIMEOUT: 'Request timed out for transaction %s',
   IDENTIFY_ERROR: 'Transaction id not match',
@@ -36,7 +36,7 @@ var commonError = {
   PARAM_ERROR: 'Params Error',
 };
 
-var databaseEnums = {
+const databaseEnums = {
   geo: 3,
   edge: 4,
   sic: 5,
@@ -275,7 +275,7 @@ function na_pulse_plus(queryParamArray, response) {
   this['pulse-plus-in-dst'] = response[22] == undefined ? '?' : response[22];
 }
 
-exports.isValidDatabaseId = function (databaseId) {
+export const isValidDatabaseId = databaseId => {
   for (var key in databaseEnums) {
     if (databaseEnums.hasOwnProperty(key)) {
       if (databaseEnums[key] == databaseId) {
@@ -286,15 +286,15 @@ exports.isValidDatabaseId = function (databaseId) {
   return false;
 };
 
-exports.isValidApiId = function (apiId) {
+export const isValidApiId = apiId => {
   return validator.isInt(apiId, {min: 0, max: 127});
 };
 
-exports.isValidDelay = function (number) {
+export const isValidDelay = number => {
   return validator.isInt(number);
 };
 
-exports.determineIpType = function (ipAddress) {
+export const determineIpType = ipAddress => {
   var type;
   if (validator.isIP(ipAddress, 4)) {
     type = 4;
@@ -310,7 +310,7 @@ exports.determineIpType = function (ipAddress) {
  * @param responseArray the raw response array
  * @param callback the callback function provided by the user
  */
-exports.generateResponseObject = function (queryParamArray, responseArray, callback) {
+export const generateResponseObject = (queryParamArray, responseArray, callback) => {
   var responseObject;
   switch (queryParamArray[0]) {
     case 3:
@@ -382,7 +382,7 @@ exports.generateResponseObject = function (queryParamArray, responseArray, callb
  * @param transactionId of the request
  * @param callback the callback function provided by the user
  */
-exports.generateXMLResponseObject = function (response, transactionId, callback) {
+export const generateXMLResponseObject = (response, transactionId, callback) => {
   var xmlObject = response.response.$; //accessing the data parsed after xml2js does its work
   if (xmlObject['trans-id'] != transactionId) {
     var responseObject = 'Error : response transaction id does not match request transaction id.';
@@ -397,7 +397,7 @@ exports.generateXMLResponseObject = function (response, transactionId, callback)
   callback(xmlObject);
 };
 
-exports.showError = function (identify, extra) {
+export const showError = (identify, extra) => {
   let errInfo;
   if (!identify || !commonError[identify]) {
     errInfo = commonError.ERROR;
@@ -410,6 +410,6 @@ exports.showError = function (identify, extra) {
   return errInfo;
 };
 
-exports.showResult = function (data) {
+export const showResult = data => {
   return data;
 };

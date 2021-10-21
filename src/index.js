@@ -1,10 +1,11 @@
 /*
  * @Author: xiashan
  * @Date: 2021-10-13 18:51:24
- * @LastEditTime: 2021-10-19 14:55:22
+ * @LastEditTime: 2021-10-21 10:16:00
  */
-const requestIp = require('request-ip');
-const netAcuityAPI = require('./lib/NetAcuityAPI.js');
+import requestIp from 'request-ip';
+import {queryNetAcuityServer} from './lib/NetAcuityAPI.js';
+
 const databaseEnums = {
   geo: 3,
   edge: 4,
@@ -42,7 +43,7 @@ function isObject(val) {
  * @param {boolean} [options.rawBoolean]
  * @return {*}
  */
-async function getClientInfo(req, options) {
+export const getClientInfo = async (req, options) => {
   if (!isObject(options)) {
     throw new TypeError('Options must be an object!');
   }
@@ -54,11 +55,11 @@ async function getClientInfo(req, options) {
   const clientIp = requestIp.getClientIp(req);
   const queryParam = [databaseType, apiId, clientIp, netAcuityIp, timeoutDelay];
   try {
-    return await netAcuityAPI.queryNetAcuityServer(queryParam, rawBoolean);
+    return await queryNetAcuityServer(queryParam, rawBoolean);
   } catch (error) {
     throw new Error(error);
   }
-}
+};
 
 /**
  * Expose client geo as a middleware.
@@ -67,7 +68,7 @@ async function getClientInfo(req, options) {
  * @param {string} [options.attributeName] - Name of attribute to augment request object with.
  * @return {*}
  */
-function mw(options = {}) {
+export const mw = (options = {}) => {
   if (!isObject(options)) {
     throw new TypeError('Options must be an object!');
   }
@@ -81,9 +82,4 @@ function mw(options = {}) {
     });
     next();
   };
-}
-
-module.exports = {
-  getClientInfo,
-  mw,
 };
